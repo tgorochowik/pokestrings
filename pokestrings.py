@@ -10,6 +10,11 @@ decodings = dict(zip(pokecodes, pokechars))
 
 # add special entries
 special = {
+    # variable control codes
+    0x52: "<player>",
+    0x53: "<rival>",
+    0x59: "<target>",
+    0x5a: "<user>",
     # text control codes
     0x4a: "PkMn",
     0x54: "Poke",
