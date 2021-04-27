@@ -3,8 +3,8 @@
 import string
 import sys
 
-pokechars = string.ascii_uppercase + "():;[]" + string.ascii_lowercase + "edlstv" + "'??-rm?!.___▷▶▼♂$x./,♀0123456789"
-pokecodes = list(range(0x80, 0xc0)) + list(range(0xe0, 0x100))
+pokechars = " " + string.ascii_uppercase + "():;[]" + string.ascii_lowercase + "edlstv" + "'??-rm?!.___▷▶▼♂$x./,♀0123456789"
+pokecodes = list(range(0x7f, 0xc0)) + list(range(0xe0, 0x100))
 
 decodings = dict(zip(pokecodes, pokechars))
 
