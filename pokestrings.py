@@ -15,6 +15,9 @@ special = {
     0x53: "<rival>",
     0x59: "<target>",
     0x5a: "<user>",
+    # pokedex specific
+    0x60: "'",
+    0x60: "\"",
     # text control codes
     0x4a: "PkMn",
     0x54: "Poke",
