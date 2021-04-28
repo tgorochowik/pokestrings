@@ -1,60 +1,53 @@
 #!/usr/bin/env python3
 
-import string
 import sys
+import argparse
+from pokecodec import PokeCodec
 
-pokechars = " " + string.ascii_uppercase + "():;[]" + string.ascii_lowercase + "edlstv" + "'??-rm?!.___▷▶▼♂$x./,♀0123456789"
-pokecodes = list(range(0x7f, 0xc0)) + list(range(0xe0, 0x100))
+parser = argparse.ArgumentParser(description='Extract strings from Pokemon ROMs.')
 
-decodings = dict(zip(pokecodes, pokechars))
+parser.add_argument('--generation',
+                    '-g',
+                    type=int,
+                    default=1,
+                    required=False,
+                    help='Game generation')
 
-# add special entries
-special = {
-    # variable control codes
-    0x52: "<player>",
-    0x53: "<rival>",
-    0x59: "<target>",
-    0x5a: "<user>",
-    # pokedex specific
-    0x60: "'",
-    0x60: "\"",
-    # text control codes
-    0x4a: "PkMn",
-    0x54: "Poke",
-    0x56: "...",
-    0x5b: "PC",
-    0x5c: "TM",
-    0x5d: "TRAINER",
-    0x5e: "ROCKET",
-    0x6d: ":",
-}
-decodings.update(special)
+parser.add_argument('--minimum-length',
+                    '-l',
+                    type=int,
+                    default=3,
+                    required=False,
+                    help='Minimum number of consecutive characters to be considered')
 
-pokecodes = pokecodes + list(special.keys())
+parser.add_argument('--no-reduce',
+                    dest='reduce',
+                    action='store_false',
+                    required=False,
+                    help='Do not reduce multtiple consective 0xff chars (encoding for 9) to a single char')
 
+parser.add_argument("file", type=str)
 
-def decode(data):
-    # discard large lists of 0xff (encoding for '9')
-    prev = None
-    data = [prev := v for v in data if v != 0xff and prev != v]
-    if len(data) < 3:
-        return
+args = parser.parse_args()
 
-    for d in data:
-        if d in decodings:
-            print(decodings[d], end="")
-        else:
-            print("?", end="")
-    print()
+print(args.reduce)
 
+try:
+    codec = PokeCodec(args.generation, args.reduce, args.minimum_length)
+except ValueError as e:
+    print(e)
+    sys.exit(1)
 
-data = []
+try:
+    with open(args.file, "rb") as f:
+        data = f.read()
+except OSError as e:
+    print(e)
+    sys.exit(e.errno)
 
-with open(sys.argv[1], "rb") as f:
-    data = f.read()
+pokecodes = codec.getPokeCodes()
 
 pos = 0
-
 while pos < len(data):
     matches = 0
     match = 0
@@ -64,7 +57,7 @@ while pos < len(data):
         while pos + matches < len(data) and data[pos + matches] in pokecodes:
             matches += 1
         if matches >= 3:
-            decode(data[pos:pos + matches])
+            codec.decode(data[pos:pos + matches])
         pos += matches
     else:
         pos += 1
