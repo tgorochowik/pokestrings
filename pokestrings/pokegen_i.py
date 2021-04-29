@@ -2,7 +2,7 @@
 
 import string
 
-from pokegen import PokeGen
+from .pokegen import PokeGen
 
 
 class PokeGenI(PokeGen):
