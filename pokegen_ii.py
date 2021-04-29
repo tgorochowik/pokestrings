@@ -4,17 +4,17 @@ import string
 
 from pokegen import PokeGen
 
-class PokeGenII(PokeGen):
 
+class PokeGenII(PokeGen):
     def __init__(self):
         upper = dict(zip(list(range(0x80, 0x9a)), string.ascii_uppercase))
         lower = dict(zip(list(range(0xa0, 0xba)), string.ascii_lowercase))
         digits = dict(zip(list(range(0xf6, 0x100)), string.digits))
 
         # add special entries
-        self.decodings = {
+        self.ecodings = {
             # junk at 0x00-0x47
-            # control chars between 0x48x5f
+            # control chars at 0x48-0x5f
             0x4a: "PkMn",
             0x52: "<player>",
             0x53: "<rival>",
@@ -63,7 +63,7 @@ class PokeGenII(PokeGen):
             0xe7: "!",
             0xe8: ".",
             0xe9: "&",
-            0xea: "e", # é
+            0xea: "e",  # é
             0xeb: "→",
             0xec: "▷",
             0xed: "▶",
@@ -77,8 +77,8 @@ class PokeGenII(PokeGen):
             0xf5: "♀",
             # 0xf6-0xff contains digits
         }
-        self.decodings.update(upper)
-        self.decodings.update(lower)
-        self.decodings.update(digits)
+        self.encodings.update(upper)
+        self.encodings.update(lower)
+        self.encodings.update(digits)
 
-        self.pokecodes = list(self.decodings.keys())
+        self.pokecodes = list(self.encodings.keys())

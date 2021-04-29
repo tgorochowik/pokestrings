@@ -3,7 +3,7 @@
 This is a small util that can be used to extract strings from Pokemon (gen I) ROMs.
 
 ```
-$ ./pokestrings.py pokered.gbc | grep -i slowpoke -a2
+$ pokestrings pokered.gbc | grep -i slowpoke -a2
 FEAROW
 PIDGEY
 SLOWPOKE

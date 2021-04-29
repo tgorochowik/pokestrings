@@ -3,8 +3,8 @@
 from pokegen_i import PokeGenI
 from pokegen_ii import PokeGenII
 
-class PokeCodec:
 
+class PokeCodec:
     def __init__(self, gen, reduce, min_len):
         self.reduce = reduce
         self.min_len = min_len
@@ -16,10 +16,10 @@ class PokeCodec:
         else:
             raise ValueError(f"Gen{gen} unsupported")
 
-        self.decodings = self.poke.getDecodings()
-        self.codes = self.poke.getPokeCodes()
+        self.encodings = self.poke.get_encodings()
+        self.codes = self.poke.get_pokecodes()
 
-    def getPokeCodes(self):
+    def get_pokecodes(self):
         return self.codes
 
     def decode(self, data):
@@ -31,8 +31,8 @@ class PokeCodec:
                 return
 
         for d in data:
-            if d in self.decodings:
-                print(self.decodings[d], end="")
+            if d in self.encodings:
+                print(self.encodings[d], end="")
             else:
                 print("?", end="")
         print()
