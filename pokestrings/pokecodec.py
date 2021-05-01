@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-from .pokegen_i import PokeGenI
-from .pokegen_ii import PokeGenII
+from .utils import get_pokegen
 
 
 class PokeCodec:
@@ -10,12 +9,7 @@ class PokeCodec:
         self.min_len = min_len
         self.show_offset = show_offset
 
-        if gen == 1:
-            self.poke = PokeGenI()
-        elif gen == 2:
-            self.poke = PokeGenII()
-        else:
-            raise ValueError(f"Gen{gen} unsupported")
+        self.poke = get_pokegen(gen)
 
         self.encodings = self.poke.get_encodings()
         self.codes = self.poke.get_pokecodes()
