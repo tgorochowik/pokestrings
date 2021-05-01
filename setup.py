@@ -15,9 +15,12 @@ setup(
     author_email="t@gorochowik.com",
     url="https://github.com/tgorochowik/pokestrings",
     packages=["pokestrings"],
-    entry_points={"console_scripts": [
-        "pokestrings = pokestrings:main",
-    ]},
+    entry_points={
+        "console_scripts": [
+            "pokestrings = pokestrings:main_pokestrings",
+            "pokecodec = pokestrings:main_pokecodec",
+        ]
+    },
     classifiers=[
         "Environment :: Console",
         "Intended Audience :: Developers",

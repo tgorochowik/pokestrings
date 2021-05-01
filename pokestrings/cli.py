@@ -6,7 +6,7 @@ from .pokecodec import PokeCodec
 from .pokescanner import PokeScanner
 
 
-def run(args):
+def run_pokestrings(args):
     try:
         codec = PokeCodec(args.generation, args.e_acute)
         scanner = PokeScanner(args.generation, args.reduce, args.bytes)
@@ -28,7 +28,7 @@ def run(args):
             print(codec.decode(match))
 
 
-def parse_args():
+def parse_args_pokestrings():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         description="Extract strings from Pokemon ROMs.")
@@ -79,8 +79,84 @@ def parse_args():
     return parser.parse_args()
 
 
+def run_pokecodec(args):
+    try:
+        codec = PokeCodec(args.generation, True)
+    except ValueError as e:
+        print(e)
+        sys.exit(1)
+
+    if args.decode:
+        print(codec.decode(bytearray.fromhex(args.data)))
+        return
+
+    if args.encode:
+        print(codec.encode(args.data).hex())
+        return
+
+
+def parse_args_pokecodec():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description="Decode and encode Pokemon strings.")
+
+    # yapf: disable
+    parser.add_argument(
+        "--generation",
+        "-g",
+        type=int,
+        default=1,
+        required=False,
+        help="Game Generation, supported generations: 1 (GB), 2 (GBC)")
+
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument(
+        "--decode",
+        "-d",
+        action="store_true",
+        help="hex data to decode")
+
+    mode.add_argument(
+        "--encode",
+        "-e",
+        action="store_true",
+        help="string to encode as hex data")
+
+    parser.add_argument("data", type=str)
+    # yapf: enable
+
+    return parser.parse_args()
+
+
+def main_pokestrings():
+    run_pokestrings(parse_args_pokestrings())
+    sys.exit(0)
+
+
+def main_pokecodec():
+    run_pokecodec(parse_args_pokecodec())
+    sys.exit(0)
+
+
 def main():
-    run(parse_args())
+    try:
+        if "strings" in sys.argv[1]:
+            sys.argv = sys.argv[1:]
+            main_pokestrings()
+
+        if "codec" in sys.argv[1]:
+            sys.argv = sys.argv[1:]
+            main_pokecodec()
+
+        raise ValueError("Invalid tool selector")
+
+    except IndexError as e:
+        print("Specify tool as the first argument")
+    except ValueError as e:
+        print(e)
+
+    # should not reach this with valid options
+    sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -21,3 +21,14 @@ class PokeCodec:
             else:
                 answer += "_"
         return answer
+
+    def encode(self, data):
+        answer = []
+        # swap keys with values (the last one always wins...)
+        encodings = {y: x for x, y in self.encodings.items()}
+        for d in data:
+            if d in encodings:
+                answer.append(encodings[d])
+            else:
+                answer.append(ord('_'))
+        return bytes(answer)
