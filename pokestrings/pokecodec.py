@@ -26,8 +26,11 @@ class PokeCodec:
         if self.reduce:
             # discard large lists of 0xff (encoding for '9')
             prev = None
-            data = [prev := v for v in data if v != 0xff and prev != v]
-            if len(data) < self.min_len:
+            reduced = [
+                prev := v for v in data
+                if v != 0xff or (v == 0xff and prev != v)
+            ]
+            if len(reduced) < self.min_len:
                 return
 
         for d in data:
