@@ -7,7 +7,8 @@ from .pokecodec import PokeCodec
 
 def run(args):
     try:
-        codec = PokeCodec(args.generation, args.reduce, args.bytes)
+        codec = PokeCodec(args.generation, args.reduce, args.bytes,
+                          args.show_offset)
     except ValueError as e:
         print(e)
         sys.exit(1)
@@ -32,7 +33,7 @@ def run(args):
                                                      matches] in pokecodes:
                 matches += 1
             if matches >= 3:
-                codec.decode(data[pos:pos + matches])
+                codec.decode(pos, data[pos:pos + matches])
             pos += matches
         else:
             pos += 1
@@ -58,6 +59,14 @@ def parse_args():
         default=4,
         required=False,
         help='Number of minimum consecutive characters to be printed')
+
+    parser.add_argument(
+        '--show-offset',
+        '-o',
+        action='store_true',
+        required=False,
+        default=False,
+        help='Print the offset before each string')
 
     parser.add_argument(
         '--no-reduce',

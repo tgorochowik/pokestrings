@@ -5,9 +5,10 @@ from .pokegen_ii import PokeGenII
 
 
 class PokeCodec:
-    def __init__(self, gen, reduce, min_len):
+    def __init__(self, gen, reduce, min_len, show_offset):
         self.reduce = reduce
         self.min_len = min_len
+        self.show_offset = show_offset
 
         if gen == 1:
             self.poke = PokeGenI()
@@ -22,7 +23,7 @@ class PokeCodec:
     def get_pokecodes(self):
         return self.codes
 
-    def decode(self, data):
+    def decode(self, offset, data):
         if self.reduce:
             # discard large lists of 0xff (encoding for '9')
             prev = None
@@ -33,6 +34,12 @@ class PokeCodec:
             if len(reduced) < self.min_len:
                 return
 
+            # recalculate offset in case anything was reduced in the front
+            offset += data.index(reduced[0])
+            data = reduced
+
+        if self.show_offset:
+            print(f"0x{offset:06x}: ", end="")
         for d in data:
             if d in self.encodings:
                 print(self.encodings[d], end="")
