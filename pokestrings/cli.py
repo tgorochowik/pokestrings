@@ -8,7 +8,7 @@ from .pokecodec import PokeCodec
 def run(args):
     try:
         codec = PokeCodec(args.generation, args.reduce, args.bytes,
-                          args.show_offset)
+                          args.show_offset, args.e_acute)
     except ValueError as e:
         print(e)
         sys.exit(1)
@@ -68,6 +68,14 @@ def parse_args():
         required=False,
         default=False,
         help="Print the offset before each string")
+
+    parser.add_argument(
+        "--e-acute",
+        "-e",
+        action="store_true",
+        required=False,
+        default=False,
+        help="Do not convert é to regular e")
 
     parser.add_argument(
         "--no-reduce",

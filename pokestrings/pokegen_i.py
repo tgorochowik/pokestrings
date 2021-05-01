@@ -75,3 +75,9 @@ class PokeGenI(PokeGen):
         self.encodings.update(digits)
 
         self.pokecodes = list(self.encodings.keys())
+
+        # encodings using é (overwrite the above if needed)
+        self.e_acute_encodings = {
+            0x54: "Poké",
+            0xba: "é",
+        }

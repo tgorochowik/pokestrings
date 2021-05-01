@@ -5,7 +5,7 @@ from .pokegen_ii import PokeGenII
 
 
 class PokeCodec:
-    def __init__(self, gen, reduce, min_len, show_offset):
+    def __init__(self, gen, reduce, min_len, show_offset, e_acute):
         self.reduce = reduce
         self.min_len = min_len
         self.show_offset = show_offset
@@ -19,6 +19,9 @@ class PokeCodec:
 
         self.encodings = self.poke.get_encodings()
         self.codes = self.poke.get_pokecodes()
+
+        if e_acute:
+            self.encodings.update(self.poke.get_e_acute_encodings())
 
     def get_pokecodes(self):
         return self.codes
