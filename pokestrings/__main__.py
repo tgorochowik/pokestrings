@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-from . import parse_args, run
+from .cli import main
 
-def main():
-    run(parse_args())
-
-if __name__ == "__main__":
-    main()
+main()
