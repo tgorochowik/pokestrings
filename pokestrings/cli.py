@@ -6,7 +6,6 @@ from .pokecodec import PokeCodec
 
 
 def run(args):
-    print(args)
     try:
         codec = PokeCodec(args.generation, args.reduce, args.bytes)
     except ValueError as e:
