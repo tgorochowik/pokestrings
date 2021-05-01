@@ -40,7 +40,7 @@ def parse_args_pokestrings():
         type=int,
         default=1,
         required=False,
-        help="Game Generation, supported generations: 1 (GB), 2 (GBC)")
+        help="game generation, supported generations: 1 (GB), 2 (GBC)")
 
     parser.add_argument(
         "--bytes",
@@ -48,7 +48,7 @@ def parse_args_pokestrings():
         type=int,
         default=4,
         required=False,
-        help="Number of minimum consecutive characters to be printed")
+        help="number of minimum consecutive characters to be printed")
 
     parser.add_argument(
         "--show-offset",
@@ -56,7 +56,7 @@ def parse_args_pokestrings():
         action="store_true",
         required=False,
         default=False,
-        help="Print the offset before each string")
+        help="print the offset before each string")
 
     parser.add_argument(
         "--e-acute",
@@ -64,14 +64,14 @@ def parse_args_pokestrings():
         action="store_true",
         required=False,
         default=False,
-        help="Do not convert é to regular e")
+        help="do not convert é to regular e")
 
     parser.add_argument(
         "--no-reduce",
         dest="reduce",
         action="store_false",
         required=False,
-        help="Do not reduce multiple consecutive 0xff chars (encoding for 9)")
+        help="do not reduce multiple consecutive 0xff chars (encoding for 9)")
 
     parser.add_argument("file", type=str)
     # yapf: enable
@@ -107,7 +107,7 @@ def parse_args_pokecodec():
         type=int,
         default=1,
         required=False,
-        help="Game Generation, supported generations: 1 (GB), 2 (GBC)")
+        help="game generation, supported generations: 1 (GB), 2 (GBC)")
 
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument(

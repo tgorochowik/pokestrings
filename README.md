@@ -19,13 +19,13 @@ positional arguments:
 
   optional arguments:
     -h, --help            show this help message and exit
-      --generation GENERATION, -g GENERATION
-                              Game Generation, supported generations: 1 (GB), 2 (GBC) (default: 1)
-                                --bytes BYTES, -n BYTES
-                                                        Number of minimum consecutive characters to be printed (default: 4)
-    --show-offset, -o     Print the offset before each string (default: False)
-    --e-acute, -e         Do not convert é to regular e (default: False)
-    --no-reduce           Do not reduce multiple consecutive 0xff chars (encoding for 9) (default: True)
+    --generation GENERATION, -g GENERATION
+                          game generation, supported generations: 1 (GB), 2 (GBC) (default: 1)
+    --bytes BYTES, -n BYTES
+                          number of minimum consecutive characters to be printed (default: 4)
+    --show-offset, -o     print the offset before each string (default: False)
+    --e-acute, -e         do not convert é to regular e (default: False)
+    --no-reduce           do not reduce multiple consecutive 0xff chars (encoding for 9) (default: True)
 ```
 
 Example usage:
@@ -77,12 +77,12 @@ Decode and encode Pokemon strings.
 positional arguments:
   data
 
-  optional arguments:
-    -h, --help            show this help message and exit
-      --generation GENERATION, -g GENERATION
-                              Game Generation, supported generations: 1 (GB), 2 (GBC) (default: 1)
-                                --decode, -d          hex data to decode (default: False)
-    --encode, -e          string to encode as hex data (default: False)
+optional arguments:
+  -h, --help            show this help message and exit
+  --generation GENERATION, -g GENERATION
+                        game generation, supported generations: 1 (GB), 2 (GBC) (default: 1)
+  --decode, -d          hex data to decode (default: False)
+  --encode, -e          string to encode as hex data (default: False)
 ```
 
 Example usage:
