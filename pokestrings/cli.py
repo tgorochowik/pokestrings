@@ -3,12 +3,13 @@
 import sys
 import argparse
 from .pokecodec import PokeCodec
+from .pokescanner import PokeScanner
 
 
 def run(args):
     try:
-        codec = PokeCodec(args.generation, args.reduce, args.bytes,
-                          args.show_offset, args.e_acute)
+        codec = PokeCodec(args.generation, args.e_acute)
+        scanner = PokeScanner(args.generation, args.reduce, args.bytes)
     except ValueError as e:
         print(e)
         sys.exit(1)
@@ -20,23 +21,11 @@ def run(args):
         print(e)
         sys.exit(e.errno)
 
-    pokecodes = codec.get_pokecodes()
-
-    pos = 0
-    while pos < len(data):
-        matches = 0
-        match = 0
-        if data[pos] in pokecodes:
-            match = pos
-            matches = 1
-            while pos + matches < len(data) and data[pos +
-                                                     matches] in pokecodes:
-                matches += 1
-            if matches >= 3:
-                codec.decode(pos, data[pos:pos + matches])
-            pos += matches
+    for offset, match in scanner.scan(data):
+        if args.show_offset:
+            print(f"0x{offset:06x}: {codec.decode(match)}")
         else:
-            pos += 1
+            print(codec.decode(match))
 
 
 def parse_args():

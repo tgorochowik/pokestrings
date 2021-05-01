@@ -4,42 +4,20 @@ from .utils import get_pokegen
 
 
 class PokeCodec:
-    def __init__(self, gen, reduce, min_len, show_offset, e_acute):
-        self.reduce = reduce
-        self.min_len = min_len
-        self.show_offset = show_offset
+    def __init__(self, gen, e_acute):
+        poke = get_pokegen(gen)
 
-        self.poke = get_pokegen(gen)
-
-        self.encodings = self.poke.get_encodings()
-        self.codes = self.poke.get_pokecodes()
+        self.encodings = poke.get_encodings()
+        self.codes = poke.get_pokecodes()
 
         if e_acute:
             self.encodings.update(self.poke.get_e_acute_encodings())
 
-    def get_pokecodes(self):
-        return self.codes
-
-    def decode(self, offset, data):
-        if self.reduce:
-            # discard large lists of 0xff (encoding for '9')
-            prev = None
-            reduced = [
-                prev := v for v in data
-                if v != 0xff or (v == 0xff and prev != v)
-            ]
-            if len(reduced) < self.min_len:
-                return
-
-            # recalculate offset in case anything was reduced in the front
-            offset += data.index(reduced[0])
-            data = reduced
-
-        if self.show_offset:
-            print(f"0x{offset:06x}: ", end="")
+    def decode(self, data):
+        answer = ""
         for d in data:
             if d in self.encodings:
-                print(self.encodings[d], end="")
+                answer += self.encodings[d]
             else:
-                print("?", end="")
-        print()
+                answer += "_"
+        return answer
