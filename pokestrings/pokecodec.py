@@ -11,7 +11,7 @@ class PokeCodec:
         self.codes = poke.get_pokecodes()
 
         if e_acute:
-            self.encodings.update(self.poke.get_e_acute_encodings())
+            self.encodings.update(poke.get_e_acute_encodings())
 
     def decode(self, data):
         answer = ""
