@@ -4,6 +4,8 @@ import sys
 import argparse
 from .pokecodec import PokeCodec
 
+def main():
+    run(parse_args())
 
 def run(args):
     print(args)
@@ -70,11 +72,3 @@ def parse_args():
     parser.add_argument("file", type=str)
 
     return parser.parse_args()
-
-
-def main():
-    run(parse_args())
-
-
-if __name__ == "__main__":
-    main()
