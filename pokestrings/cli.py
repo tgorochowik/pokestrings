@@ -42,40 +42,42 @@ def run(args):
 def parse_args():
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-        description='Extract strings from Pokemon ROMs.')
+        description="Extract strings from Pokemon ROMs.")
 
+    # yapf: disable
     parser.add_argument(
-        '--generation',
-        '-g',
+        "--generation",
+        "-g",
         type=int,
         default=1,
         required=False,
-        help='Game Generation, supported generations: 1 (GB), 2 (GBC)')
+        help="Game Generation, supported generations: 1 (GB), 2 (GBC)")
 
     parser.add_argument(
-        '--bytes',
-        '-n',
+        "--bytes",
+        "-n",
         type=int,
         default=4,
         required=False,
-        help='Number of minimum consecutive characters to be printed')
+        help="Number of minimum consecutive characters to be printed")
 
     parser.add_argument(
-        '--show-offset',
-        '-o',
-        action='store_true',
+        "--show-offset",
+        "-o",
+        action="store_true",
         required=False,
         default=False,
-        help='Print the offset before each string')
+        help="Print the offset before each string")
 
     parser.add_argument(
-        '--no-reduce',
-        dest='reduce',
-        action='store_false',
+        "--no-reduce",
+        dest="reduce",
+        action="store_false",
         required=False,
-        help='Do not reduce multiple consecutive 0xff chars (encoding for 9)')
+        help="Do not reduce multiple consecutive 0xff chars (encoding for 9)")
 
     parser.add_argument("file", type=str)
+    # yapf: enable
 
     return parser.parse_args()
 
