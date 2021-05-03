@@ -11,7 +11,7 @@ This repository contains small Pokemon string manipulation utilities.
 The easiest way to install this is using pip:
 
 ```
-pip install https://github.com/tgorochowik/pokestrings --user
+pip install git+https://github.com/tgorochowik/pokestrings --user
 ```
 
 Running without installation is also possible:
