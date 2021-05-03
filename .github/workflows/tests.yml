@@ -22,3 +22,7 @@ jobs:
       - name: pytest
         run:
           python -m pytest tests/
+      - name: verify that all entry points can be run
+        run: |
+          python -m pokestrings strings --help
+          python -m pokestrings codec --help
