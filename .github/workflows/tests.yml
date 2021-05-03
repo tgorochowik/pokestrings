@@ -26,3 +26,8 @@ jobs:
         run: |
           python -m pokestrings strings --help
           python -m pokestrings codec --help
+      - name: verify pip installation
+        run: |
+          pip install .
+          pokestrings --help
+          pokecodec --help
