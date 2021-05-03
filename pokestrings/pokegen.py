@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-
-
 class PokeGen:
     def get_encodings(self):
         return self.encodings

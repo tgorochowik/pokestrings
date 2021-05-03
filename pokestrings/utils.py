@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from .pokegen_i import PokeGenI
 from .pokegen_ii import PokeGenII
 

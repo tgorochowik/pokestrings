@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 from .utils import get_pokegen
 
 

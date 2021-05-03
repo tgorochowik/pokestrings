@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import string
 
 from .pokegen import PokeGen
