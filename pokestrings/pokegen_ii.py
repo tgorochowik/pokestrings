@@ -12,7 +12,7 @@ class PokeGenII(PokeGen):
         digits = dict(zip(list(range(0xf6, 0x100)), string.digits))
 
         # add special entries
-        self.ecodings = {
+        self.encodings = {
             # junk at 0x00-0x47
             # control chars at 0x48-0x5f
             0x4a: "PkMn",
