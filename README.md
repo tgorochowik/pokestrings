@@ -6,6 +6,27 @@ This repository contains small Pokemon string manipulation utilities.
 
 `pokecodec` can be used to encode and decode arbitrary hex sequence to and from Game Boy Pokemon encodings.
 
+## installation
+
+The easiest way to install this is using pip:
+
+```
+pip install https://github.com/tgorochowik/pokestrings --user
+```
+
+Running without installation is also possible:
+
+```
+python -m pokestrings strings  # to run pokestrings
+python -m pokestrings codec    # to run pokecodec
+```
+
+To run tests locally (not against the installed package), use:
+
+```
+python -m pytest tests/
+```
+
 ## pokestrings
 
 ```
